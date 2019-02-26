@@ -69,7 +69,7 @@ If Pillow still would not install use script to install it dependencies
 
 Script to install Pillow dependencies
 https://github.com/python-pillow/Pillow/blob/master/depends/debian_8.2.sh
-------------
+-------------
 #!/bin/sh
 
 #
