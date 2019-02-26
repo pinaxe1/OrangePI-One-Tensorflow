@@ -5,17 +5,24 @@ HOW-TO install Armbian Stretch, Tensorflow, and so on.
 
 From  https://dl.armbian.com/orangepione/archive/
 download Armbian_5.69_Orangepione_Debian_stretch_next_4.19.13.7Z
+
 Unpack with 7zip
+
 With  balena Etcher write image Armbian_5.69_Orangepione_Debian_stretch_next_4.19.13.img to a flash card. 
 Even 2Gb card is enough
 Start Armbian.
+
 user: root
+
 password: 1234
+
 System will ask to change default password and create a non administrative user.
 Update and upgrade system.
 
 sudo apt-get update
+
 sudo apt-get upgrade
+
 sudo shutdown -r now
 
 Now installing Tensorflow.
