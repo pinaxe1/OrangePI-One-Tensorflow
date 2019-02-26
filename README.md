@@ -1,6 +1,7 @@
 # OrangePI-One-Tensorflow
 OrangePI One 
 HOW-TO install Armbian Stretch, Tensorflow, and so on.
+------------------------------------------------------
 
 From  https://dl.armbian.com/orangepione/archive/
 download Armbian_5.69_Orangepione_Debian_stretch_next_4.19.13.7Z
@@ -15,10 +16,10 @@ Update and upgrade system.
 
 sudo apt-get update
 sudo apt-get upgrade
-
 sudo shutdown -r now
-------------------------------------------------------------------------------
+
 Now installing Tensorflow.
+------------------------------------------------------------------------------
 
 sudo apt-get install python3-dev python3-pip 
 sudo apt install libatlas-base-dev
