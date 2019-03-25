@@ -123,7 +123,8 @@ To get rid of pillow and scipy use pyPNG lib
 https://github.com/drj11/pypng/ 
 
 ========================================================================
-And here arre couple of useful Linux commands 
+
+And here are couple of useful Linux commands 
 to download files from Web
 
 wget -r -nH -nc http://192.168.1.12/Data_zoo/camvid/
@@ -132,6 +133,7 @@ wget -r -nH -nc http://192.168.1.12/logs/
 
 wget -r -nH -nc http://192.168.1.12/Model_zoo/
 
+========================================================================
 
 to show images without X server GUI
 apt install fbi
