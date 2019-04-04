@@ -100,13 +100,7 @@ Script to install Pillow dependencies
 https://github.com/python-pillow/Pillow/blob/master/depends/debian_8.2.sh
 -------------
 #!/bin/sh
-
-#
-# Installs all of the dependencies for Pillow for Debian 8.2
-# for both system Pythons 2.7 and 3.4
-#
-# Also works for Raspbian Jessie
-#
+# Installs all of the dependencies for Pillow for Debian 8.2 for both system Pythons 2.7 and 3.4 Also works for Raspbian Jessie
 
 sudo apt-get -y install python-dev python-setuptools \
     python3-dev python-virtualenv cmake
@@ -136,6 +130,8 @@ wget -r -nH -nc http://192.168.1.12/Model_zoo/
 ========================================================================
 
 to show images without X server GUI
+
 apt install fbi
+
 fbi logs/*.png
 
