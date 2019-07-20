@@ -19,6 +19,8 @@ password: 1234
 System will ask to change default password and create a non administrative user.
 Update and upgrade system.
 
+sudo fs-resize
+
 sudo apt-get update
 
 sudo apt-get upgrade
