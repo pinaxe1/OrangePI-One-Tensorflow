@@ -1,23 +1,25 @@
-# OrangePI-One-Tensorflow
-OrangePI One 
-HOW-TO install Armbian Stretch, Tensorflow, and so on.
-------------------------------------------------------
+OrangePI-One-Tensorflow
 
-From  https://dl.armbian.com/orangepione/archive/
-download Armbian_5.69_Orangepione_Debian_stretch_next_4.19.13.7Z
+OrangePI One HOW-TO install Armbian Stretch, Tensorflow, and so on.
+
+From https://dl.armbian.com/orangepione/archive/ download
+Armbian_5.69_Orangepione_Debian_stretch_next_4.19.13.7Z
 
 Unpack with 7zip
 
-With  balena Etcher write image Armbian_5.69_Orangepione_Debian_stretch_next_4.19.13.img to a flash card. 
-Even 2Gb card is enough
-Start Armbian.
+With balena Etcher write image
+Armbian_5.69_Orangepione_Debian_stretch_next_4.19.13.img to a flash
+card. Even 2Gb card is enough Start Armbian.
 
 user: root
 
 password: 1234
 
-System will ask to change default password and create a non administrative user.
-Update and upgrade system.
+System will ask to change default password and create a non
+administrative user. Update and upgrade system.
+
+update-locale en_US.UTF-8
+update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
 sudo fs-resize
 
@@ -28,13 +30,12 @@ sudo apt-get upgrade
 sudo shutdown -r now
 
 Now installing Tensorflow.
-------------------------------------------------------------------------------
 
-sudo apt-get install python3-dev python3-pip 
+sudo apt-get install python3-dev python3-pip
 
-sudo apt install libatlas-base-dev
+pip3 install --upgrade pip
 
-pip3 install -U virtualenv 
+pip3 install -U virtualenv
 
 Nexts two lines supposed to fix virtualenv but seems make it just worse ===
 
@@ -42,7 +43,7 @@ sudo apt install command-not-found
 
 sudo update-command-not-found
 
-                                                                        ===
+                                                                    ===
 Standard TF installation wouldn't work so download a wheel from dropbox.
 
 wget https://www.dropbox.com/s/gy4kockdbdyx85j/tensorflow-1.0.1-cp35-cp35m-linux_armv7l.whl
@@ -51,8 +52,8 @@ original https://github.com/samjabrahams/tensorflow-on-raspberry-pi/issues/92
 
 or something from https://github.com/lhelontra/tensorflow-on-arm/releases
 
-It wouldn't work without virtualenv. If venv is not activated pip3 install will produce an error.
-So create and activate venv 
+It wouldn't work without virtualenv. If venv is not activated pip3
+install will produce an error. So create and activate venv
 
 virtualenv --system-site-packages -p python3 ./venv
 
@@ -62,8 +63,8 @@ python3 virtualenv --system-site-packages -p python3 ./venv
 
 source ./venv/bin/activate
 
-
-Install numpy before tensorflow. For some reason pip3 hangs if numpy installed by TF Wheel.
+Install numpy before tensorflow. For some reason pip3 hangs if numpy
+installed by TF Wheel.
 
 pip3 install --upgrade numpy
 
@@ -86,9 +87,10 @@ se=tf.Session()
 se.run(c)
 
 5
-========================================================================
-Fcn-Mobilenet reqires SciPy and Pillow Not that it relies on those too much but requiers.
-SciPy and Pillow would not install with Pip into venv
+
+Fcn-Mobilenet reqires SciPy and Pillow Not that it relies on those too
+much but requiers. SciPy and Pillow would not install with Pip into
+venv
 
 So install them global
 
@@ -100,28 +102,25 @@ If Pillow still would not install use script to install it dependencies
 
 Script to install Pillow dependencies
 https://github.com/python-pillow/Pillow/blob/master/depends/debian_8.2.sh
--------------
+
 #!/bin/sh
-# Installs all of the dependencies for Pillow for Debian 8.2 for both system Pythons 2.7 and 3.4 Also works for Raspbian Jessie
 
-sudo apt-get -y install python-dev python-setuptools \
-    python3-dev python-virtualenv cmake
-sudo apt-get -y install libtiff5-dev libjpeg62-turbo-dev zlib1g-dev \
-     libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev \
-     python-tk python3-tk libharfbuzz-dev libfribidi-dev
+Installs all of the dependencies for Pillow for Debian 8.2 for both
+system Pythons 2.7 and 3.4 Also works for Raspbian Jessie
 
-./install_openjpeg.sh
-./install_imagequant.sh
-./install_raqm.sh
-------------
+sudo apt-get -y install python-dev python-setuptools
+python3-dev python-virtualenv cmake sudo apt-get -y install
+libtiff5-dev libjpeg62-turbo-dev zlib1g-dev
+libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev
+python-tk python3-tk libharfbuzz-dev libfribidi-dev
 
-To get rid of pillow and scipy use pyPNG lib
-https://github.com/drj11/pypng/ 
+./install_openjpeg.sh ./install_imagequant.sh ./install_raqm.sh
+
+To get rid of pillow and scipy use pyPNG lib https://github.com/drj11/pypng/
 
 ========================================================================
 
-And here are couple of useful Linux commands 
-to download files from Web
+And here are couple of useful Linux commands to download files from Web
 
 wget -r -nH -nc http://192.168.1.12/Data_zoo/camvid/
 
@@ -136,4 +135,28 @@ to show images without X server GUI
 apt install fbi
 
 fbi logs/*.png
+========================================================================
+Activate and test Orange PI ONE camera gc2035 module
 
+Ok guys, I found the answer!
+1. DO NOT touch /etc/modules. Leave it like that:
+#w1-sunxi
+#w1-gpio
+#w1-therm
+#gc2035
+#vfe_v4l2
+2.  rc.local:
+modprobe gc2035 hres=0
+modprobe vfe_v4l2
+sunxi-pio -m "PG11<1><0><1><1>" #DOVDD
+sunxi-pio -m "PE15<1><0><1><0>" #Power_Down
+sunxi-pio -m "PE14<1><0><1><1>" #reset
+
+And it works!
+$fswebcam -r 1600x1200 -p YUV420P /home/orangepi/qwe.jpg﻿
+
+I got image. See it with fbi or another image viver.
+Thanks for all!!!
+P.S. Actually those sunxi-pio commands are optional.
+In my case works without them. Just don't forget "-p YUV420P" option
+in fswebcam command.
