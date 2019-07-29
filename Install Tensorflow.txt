@@ -23,7 +23,17 @@ sudo fs-resize
 sudo apt-get update
 sudo apt-get upgrade
 sudo shutdown -r now
+==============================================
+After apt-get upgrade sshd often dies. If you need it working here is the fix.
+==============================================
+edit the file
 
+/usr/lib/tmpfiles.d/sshd.conf
+
+So it'll contain line ...
+
+d /run/sshd 0755 root root
+==============================================
 Now installing Tensorflow.
 
 sudo apt-get install python3-dev python3-pip
