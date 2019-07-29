@@ -1,17 +1,17 @@
+To get Orange pi one camera gc2035 working with Python and OpenCV
+
 Minimal set ot thing to do in
 Armbian "Ubuntu 16.04.6 LTS"
 Linux 3.4.113-sun8i armv7l
 
-To get Orange pi one camera
-( gc2035 ) working with Python and OpenCV
 ==============================================
 install OpenCV
-==============================================
+ 
 sudo apt-get install python-opencv
 
 ==============================================
 to compile and install v4l2loopback
-==============================================
+ 
 sudo apt-get install linux-headers-$(uname -r)
 
 cd ~ && git clone --depth=1 --branch=master https://github.com/umlaeute/v4l2loopback
@@ -22,7 +22,7 @@ sudo depmod -a
 
 ==============================================
 to compile vidcopy
-==============================================
+ 
 apt-get install libv4l-dev
 git clone https://github.com/lhelontra/vidcopy
 cd vidcopy/
@@ -30,7 +30,7 @@ gcc vidcopy.c -o vidcopy
 
 ==============================================
 to activate camera
-==============================================
+
 sudo ls /dev/vi*
 sudo sunxi-pio -m "PG11<1><0><1><1>"
 sudo modprobe gc2035
@@ -43,7 +43,7 @@ cd ~/vidcopy
 
 ==============================================
 Pyton program to run
-==============================================
+ 
 import cv2
 c = cv2.VideoCapture(1)
 
@@ -65,7 +65,30 @@ while(1):sudo
 cv2.destroyAllWindows()
 
 ==============================================
-how to fix SSHD after upgrade
+If for some reason it still doesn't work
+We can check if camera work at all without vidcopy and loopback
+
+Install fswebcam and sunxi-tools if needed.
+
+apt-get install fswebcam
+apt-get install sunxi-tools
+-------
+
+sunxi-pio -m "PG11<1><0><1><1>" #DOVDD
+modprobe gc2035
+modprobe vfe_v4l2
+$fswebcam -r 1600x1200 -p YUV420P /home/orangepi/qwe.jpg
+
 ==============================================
+If for some reason it still doesn't work
+
+apt-get update
+apt-get upgrade
+
+==============================================
+how to fix SSHD after upgrade
+
 /usr/lib/tmpfiles.d/sshd.conf
 d /run/sshd 0755 root root
+
+==============================================
