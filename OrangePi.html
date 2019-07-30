@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>OrangePi Control Camera Python OpenCV</title>
+<!-- 2019-07-24 Wed 15:53 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Org-mode">
+<meta name="author" content="lp-maksym-satula">
+
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+/* org mode styles on top of twbs */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-size: 18px;
+    margin-bottom: 105px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 101px;
+    background-color: #f5f5f5;
+}
+
+footer > div {
+    padding: 10px;
+}
+
+footer p {
+    margin: 0 0 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#table-of-contents {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+blockquote p {
+    font-size: 18px;
+}
+
+pre {
+    font-size: 16px;
+}
+
+.footpara {
+    display: inline-block;
+}
+
+figcaption {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+  padding-bottom: 15px;
+}
+
+/* from twbs docs */
+
+.bs-docs-sidebar.affix {
+    position: static;
+}
+@media (min-width: 768px) {
+    .bs-docs-sidebar {
+        padding-left: 20px;
+    }
+}
+
+/* All levels of nav */
+.bs-docs-sidebar .nav > li > a {
+    display: block;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus {
+    padding-left: 19px;
+    color: #A1283B;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 1px solid #A1283B;
+}
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+    padding-left: 18px;
+    font-weight: bold;
+    color: #A1283B;
+    background-color: transparent;
+    border-left: 2px solid #A1283B;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-docs-sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav > li > a:focus {
+    padding-left: 29px;
+}
+.bs-docs-sidebar .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav > .active:focus > a {
+    padding-left: 28px;
+    font-weight: 500;
+}
+
+/* Nav: third level (shown on .active) */
+.bs-docs-sidebar .nav .nav .nav {
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav .nav > li > a:focus {
+    padding-left: 39px;
+}
+.bs-docs-sidebar .nav .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav .nav > .active:focus > a {
+    padding-left: 38px;
+    font-weight: 500;
+}
+
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+    .bs-docs-sidebar .nav > .active > ul {
+        display: block;
+    }
+    /* Widen the fixed sidebar */
+    .bs-docs-sidebar.affix,
+    .bs-docs-sidebar.affix-bottom {
+        width: 213px;
+    }
+    .bs-docs-sidebar.affix {
+        position: fixed; /* Undo the static from mobile first approach */
+        top: 20px;
+    }
+    .bs-docs-sidebar.affix-bottom {
+        position: absolute; /* Undo the static from mobile first approach */
+    }
+    .bs-docs-sidebar.affix .bs-docs-sidenav,.bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+}
+@media (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .bs-docs-sidebar.affix-bottom,
+    .bs-docs-sidebar.affix {
+        width: 263px;
+    }
+}
+</style>
+<script type="text/javascript">
+$(function() {
+    'use strict';
+
+    $('.bs-docs-sidebar li').first().addClass('active');
+
+    $(document.body).scrollspy({target: '.bs-docs-sidebar'});
+
+    $('.bs-docs-sidebar').affix();
+});
+</script>
+</head>
+<body>
+<div id="content" class="container">
+<div class="row"><div class="col-md-9"><h1 class="title">OrangePi Control Camera Python OpenCV</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Prepare the System</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> SSH setup</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir -p ~/.ssh
+cat &gt;&gt; ~/.ssh/authorized_keys
+</pre>
+</div>
+
+<p>
+Paste your open SSH key and press <code>Ctrl+D</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Passwordless sudo</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #006FE0;">echo</span> <span style="color: #008000;">'orangepi ALL=(ALL) NOPASSWD: ALL'</span> | sudo tee -a /etc/sudoers.d/010_orangepi-nopasswd
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Time</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo timedatectl set-timezone America/New_York
+sudo perl -n -i.orig -e <span style="color: #008000;">'next if /^pool [1-3]/;s/0\.[a-z.]+\.ntp\.org|ntp\.ubuntu\.com/softcomputer.com/;print'</span> /etc/ntp.conf
+sudo systemctl restart ntp
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Update packages</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo apt update
+sudo apt upgrade
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Build Kernel 3.4.113</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #006FE0;">cd</span> ~ &amp;&amp; git clone --depth=1 --branch=master https://github.com/orangepi-h3-linus/orangepi_h3_linus.git
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #006FE0;">cd</span> ~/orangepi_h3_linus/OrangePi-Kernel/linux-3.4.113
+make -j$(<span style="color: #FF1493;">nproc</span>) <span style="color: #BA36A5;">ARCH</span>=arm <span style="color: #BA36A5;">CROSS_COMPILE</span>=arm-linux-gnueabihf- uImage modules
+sudo make <span style="color: #BA36A5;">ARCH</span>=arm <span style="color: #BA36A5;">CROSS_COMPILE</span>=arm-linux-gnueabihf- modules_install
+sudo mv /media/boot/uImage /media/boot/uImage.3.4.112
+sudo cp arch/arm/boot/uImage /media/boot
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo reboot
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Build <code>v4l2loopback</code></h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #006FE0;">cd</span> ~ &amp;&amp; git clone --depth=1 --branch=master https://github.com/umlaeute/v4l2loopback
+<span style="color: #006FE0;">cd</span> ~/v4l2loopback/
+make
+sudo make install
+sudo depmod -a
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Load Modules</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo modprobe gc2035 <span style="color: #BA36A5;">hres</span>=0
+sudo modprobe vfe_v4l2
+sleep 5
+sudo modprobe v4l2loopback
+</pre>
+</div>
+
+<p>
+To have them auto loaded upon reboot:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #006FE0;">echo</span> -e <span style="color: #008000;">"gc2035\nvfe_v4l2\nv4l2loopback"</span> | sudo tee -a /etc/modules
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Build and Run <code>vidcopy</code></h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo apt install libv4l-dev
+<span style="color: #006FE0;">cd</span> ~ &amp;&amp; git clone https://github.com/lhelontra/vidcopy
+<span style="color: #006FE0;">cd</span> ~/vidcopy/
+gcc vidcopy.c -o vidcopy
+./vidcopy -w 800 -h 600 -r 30 -i /dev/video0 -o /dev/video1 -f UYVY &amp;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Create and Run a Python Program</h2>
+<div class="outline-text-2" id="text-6">
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">!/usr/bin/python2</span>
+
+<span style="color: #0000FF;">import</span> cv2
+<span style="color: #BA36A5;">c</span> = cv2.VideoCapture(1)
+
+<span style="color: #0000FF;">while</span>(1):
+  <span style="color: #BA36A5;">_</span>,<span style="color: #BA36A5;">f</span> = c.read()
+  cv2.imshow(<span style="color: #008000;">'Camera Orange Pi'</span>,f)
+  <span style="color: #BA36A5;">k</span> = cv2.waitKey(5)
+  <span style="color: #0000FF;">if</span> k==1048603:
+      <span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">Esc key to stop, or 27 depending your keyboard</span>
+      <span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">Touche ESC appuyee. le code peut dependre du clavier. Normalement 27</span>
+      <span style="color: #0000FF;">break</span>
+  <span style="color: #0000FF;">elif</span> k==-1:
+      <span style="color: #0000FF;">continue</span>
+  <span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">uncomment to know the code of of the key pressed</span>
+  <span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">Decommenter pour connaitre le code de la touche pressee </span>
+  <span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">else:</span>
+      <span style="color: #8D8D84;">#</span><span style="color: #8D8D84; font-style: italic;">print k </span>
+
+cv2.destroyAllWindows()
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> References</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+<a href="https://diyprojects.io/orange-pi-armbian-control-camera-python-opencv/">https://diyprojects.io/orange-pi-armbian-control-camera-python-opencv/</a>
+</p>
+
+<p>
+<a href="https://github.com/orangepi-h3-linus/orangepi_h3_linus">https://github.com/orangepi-h3-linus/orangepi_h3_linus</a>
+</p>
+
+<p>
+<a href="http://sunxi.org/Linux_Kernel#Compilation">http://sunxi.org/Linux_Kernel#Compilation</a>
+</p>
+</div>
+</div>
+</div><div class="col-md-3"><nav id="table-of-contents">
+<div id="text-table-of-contents" class="bs-docs-sidebar">
+<ul class="nav">
+<li><a href="#sec-1">1. Prepare the System</a>
+<ul class="nav">
+<li><a href="#sec-1-1">1.1. SSH setup</a></li>
+<li><a href="#sec-1-2">1.2. Passwordless sudo</a></li>
+<li><a href="#sec-1-3">1.3. Time</a></li>
+<li><a href="#sec-1-4">1.4. Update packages</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Build Kernel 3.4.113</a></li>
+<li><a href="#sec-3">3. Build <code>v4l2loopback</code></a></li>
+<li><a href="#sec-4">4. Load Modules</a></li>
+<li><a href="#sec-5">5. Build and Run <code>vidcopy</code></a></li>
+<li><a href="#sec-6">6. Create and Run a Python Program</a></li>
+<li><a href="#sec-7">7. References</a></li>
+</ul>
+</div>
+</nav>
+</div></div></div>
+<footer id="postamble" class="">
+<div><p class="author">Author: lp-maksym-satula</p>
+<p class="date">Created: 2019-07-24 Wed 15:53</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.2 (<a href="http://orgmode.org">Org-mode</a> 9.2.3)</p>
+</div>
+</footer>
+</body>
+</html>
