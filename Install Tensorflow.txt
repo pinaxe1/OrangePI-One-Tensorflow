@@ -56,7 +56,10 @@ or something from https://github.com/lhelontra/tensorflow-on-arm/releases
 
 It wouldn't work without virtualenv. If venv is not activated pip3
 install will produce an error. So create and activate venv
-
+==================
+On xenial pip3 virtualenv failed to install so
+sudo apt install virtualenv
+==================
 virtualenv --system-site-packages -p python3 ./venv
 
 if virtualenv wouldn't start run it as
