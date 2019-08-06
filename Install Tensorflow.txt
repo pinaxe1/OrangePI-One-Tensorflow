@@ -47,15 +47,19 @@ sudo update-command-not-found
 
 ===
 Standard TF installation wouldn't work so download a wheel from dropbox.
-
+for python 3.5 download
 wget https://www.dropbox.com/s/gy4kockdbdyx85j/tensorflow-1.0.1-cp35-cp35m-linux_armv7l.whl
-
 original https://github.com/samjabrahams/tensorflow-on-raspberry-pi/issues/92
 
 or something from https://github.com/lhelontra/tensorflow-on-arm/releases
-
-It wouldn't work without virtualenv. If venv is not activated pip3
+-------------------------
+for python 2.7 download
+wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v1.14.0/tensorflow-1.14.0-cp27-none-linux_armv7l.whl
+pip install --upgrade tensorflow-1.14.0-cp27-none-linux_armv7l.whl
+-------------------------
+python3 pip3 install wouldn't work without virtualenv. If venv is not activated pip3
 install will produce an error. So create and activate venv
+
 ==================
 On xenial pip3 virtualenv failed to install so
 sudo apt install virtualenv
