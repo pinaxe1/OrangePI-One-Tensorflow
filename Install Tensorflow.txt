@@ -1,3 +1,4 @@
+==============================================
 OrangePI-One-Tensorflow
 
 OrangePI One HOW-TO install Armbian Stretch, Tensorflow, and so on.
@@ -25,14 +26,18 @@ sudo apt-get upgrade
 sudo shutdown -r now
 ==============================================
 After apt-get upgrade sshd often dies. If you need it working here is the fix.
-==============================================
-edit the file
 
-/usr/lib/tmpfiles.d/sshd.conf
-
+edit the file /usr/lib/tmpfiles.d/sshd.conf
 So it'll contain line ...
-
 d /run/sshd 0755 root root
+
+==============================================
+Some may want to turn desktop X off
+On Armbian Xenialit it takes one command to disable GUI.
+
+sudo systemctl disable nodm
+reboot
+
 ==============================================
 Now installing Tensorflow.
 
