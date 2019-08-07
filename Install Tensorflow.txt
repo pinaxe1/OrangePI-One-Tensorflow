@@ -73,6 +73,9 @@ pip3 install --user numpy
 fails with meassage ImportError: No module named 'setuptools'
 to fix it install setuptools
 pip3 install --user setuptools
+doesn't help anyway so
+sudo apt install python3-numpy
+
 ==================
 virtualenv --system-site-packages -p python3 ./venv
 
