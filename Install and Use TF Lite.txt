@@ -1,0 +1,23 @@
+https://www.tensorflow.org/lite/guide
+
+Development workflow
+The workflow for using TensorFlow Lite involves the following steps:
+
+Pick a model
+Bring your own TensorFlow model, find a model online, or pick a model from our Pre-trained models to drop in or retrain.
+https://www.tensorflow.org/lite/models
+
+Convert the model
+If you're using a custom model, use the TensorFlow Lite converter and a few lines of Python to convert it to the TensorFlow Lite format.
+https://www.tensorflow.org/lite/convert/index
+
+Deploy to your device
+Run your model on-device with the TensorFlow Lite interpreter, with APIs in many languages.
+https://www.tensorflow.org/lite/guide/inference
+
+Optimize your model
+Use our Model Optimization Toolkit to reduce your model's size and increase its efficiency with minimal impact on accuracy.
+https://www.tensorflow.org/lite/performance/model_optimization
+
+To learn more about using TensorFlow Lite in your project, see Get started.
+https://www.tensorflow.org/lite/guide/get_started
